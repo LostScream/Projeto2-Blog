@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+    <%- include ../../partials/header.ejs %>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Login de Usuário</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/authenticate" method="post">
+                        <input type="email" name="email" placeholder="email@exemplo.com" class="form-control">
+                        <input type="password" name="password" placeholder="****************" class="form-control">
+                        <button type="submit" class="btn btn-success btn-block">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <%- include ../../partials/bootstrap_scripts.ejs %>
+</html> 

@@ -1,0 +1,50 @@
+<html lang="pt_br">
+    <%- include("../../partials/header.ejs") %>
+    <body>
+        <%- include("../../partials/navbar.ejs") %>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Editar artigo</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/articles/update" method="post">
+                        <input type="hidden" value="<%= article.id %>" name="id">
+                        <input type="text" name="title" placeholder="Defina o título do artigo" class="form-control">
+                        <textarea id="article" class="form-control" name="body" placeholder="Escreva o artigo aqui!"></textarea>
+                        <label>Categoria</label>
+                        <select name="category" class="form-control">
+                            <% categories.forEach((category) => { %>
+                                <% if(category.id == article.categoryId) { %>
+                                    <option value="<%= category.id %>" selected><%= category.title %></option>
+                                <% } %>
+                                <% else { %>
+                                    <option value="<%= category.id %>"><%= category.title %></option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                        <button class="btn btn-success">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <%- article.body %>
+        </div>
+    </body>
+    <%- include("../../partials/bootstrap_scripts.ejs") %>
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            language: "pt_BR",
+            selector: "#article",
+            plugins: [
+                "advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertedatetime media save table paste emoticons"
+            ],
+            init_instance_callback: () => {
+                tinymce.get("article").setContent($("#content").html())
+            }
+        });
+        console.log(tinymce);
+    </script>
+</html>

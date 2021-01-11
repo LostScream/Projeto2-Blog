@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+    <%- include partials/header.ejs %>
+    <body>
+        <div class="container">
+            <h2>Artigos</h2>
+            <a href="/admin/articles/new" class="btn btn-success">Criar novo artigo</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Slug</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% articles.forEach(article => { %>
+                        <tr>
+                            <td><%= article.id %></td>
+                            <td><%= article.title %></td>
+                            <td><%= article.slug %></td>
+                            <td><%= article.category.title %></td>
+                            <td>
+                                <a class="btn btn-warning" href="/admin/articles/edit/<%= article.id %>">Editar</a>
+                                <form method="post" action="/admin/articles/delete" onsubmit="confDel(event, this)">
+                                    <input type="hidden" name="id" value="<%= article.id %>">
+                                    <button class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <%- include partials/bootstrap_scripts.ejs %>
+    <script>
+        function confDel(event, form) {
+            event.preventDefult();
+            if(confirm("Tem certeza que deseja excluir esse artigo?")){
+                form.submit();
+            };
+        };
+    </script>
+</html>
